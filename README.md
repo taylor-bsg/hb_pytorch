@@ -1,2 +1,2 @@
-# pytorch-backend
-Repo to play with PyTorch backends
+# Pytorch Backend
+Repo to experiment with PyTorch backends
