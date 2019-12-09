@@ -3,7 +3,15 @@ OPENBLAS_DIR := $(TOPDIR)/OpenBLAS
 PYTORCH_DIR := $(TOPDIR)/pytorch
 HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin # Needs C++14
 
-all:
+help:
+
+install-all:
+	cd $(TOPDIR) && $(MAKE) openblas-install
+	cd $(TOPDIR) && $(MAKE) pytorch-install
+
+uninstall-all:
+	cd $(TOPDIR) && $(MAKE) openblas-uninstall
+	cd $(TOPDIR) && $(MAKE) pytorch-uninstall
 
 openblas-install:
 	cd $(OPENBLAS_DIR) && mkdir -p build
