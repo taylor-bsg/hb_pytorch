@@ -2,6 +2,7 @@ TOPDIR := $(shell git rev-parse --show-toplevel)
 OPENBLAS_DIR := $(TOPDIR)/OpenBLAS
 PYTORCH_DIR := $(TOPDIR)/pytorch
 HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin# Needs C++14; no space before this comment
+CONDA_PREFIX := $(dir $(abspath $(shell which python)/..))
 
 help:
 
@@ -14,20 +15,19 @@ uninstall-all:
 	cd $(TOPDIR) && $(MAKE) pytorch-uninstall
 
 openblas-install:
-	cd $(OPENBLAS_DIR) && mkdir -p build
+	@echo $(CONDA_PREFIX)
 	cd $(OPENBLAS_DIR) && $(MAKE)
-	cd $(OPENBLAS_DIR) && $(MAKE) install PREFIX=$(OPENBLAS_DIR)/build
+	cd $(OPENBLAS_DIR) && $(MAKE) install PREFIX=$(CONDA_PREFIX)
 
 openblas-uninstall:
-	cd $(OPENBLAS_DIR) && rm -rf build
 	cd $(OPENBLAS_DIR) && $(MAKE) clean
 
 pytorch-install: export PATH=$(HOST_TOOLCHAIN):$(shell echo $$PATH)
 pytorch-install: export DEBUG=1
 pytorch-install: export BLAS=OpenBLAS
-pytorch-install: export OpenBLAS_HOME=$(OPENBLAS_DIR)/build
-pytorch-install: export USE_NUMPY=0
+pytorch-install: export OpenBLAS_HOME=$(CONDA_PREFIX)
 pytorch-install: export USE_DISTRIBUTED=0
+pytorch-install: export USE_MKL=0
 pytorch-install: export USE_MKLDNN=0
 pytorch-install: export USE_CUDA=0
 pytorch-install: export BUILD_TEST=0
