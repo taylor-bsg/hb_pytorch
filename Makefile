@@ -1,7 +1,7 @@
 TOPDIR := $(shell git rev-parse --show-toplevel)
 OPENBLAS_DIR := $(TOPDIR)/OpenBLAS
 PYTORCH_DIR := $(TOPDIR)/pytorch
-HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin # Needs C++14
+HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin# Needs C++14; no space before this comment
 
 help:
 
