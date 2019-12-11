@@ -37,10 +37,12 @@ pytorch-install: export USE_NNPACK=0
 pytorch-install: export USE_QNNPACK=0
 pytorch-install: export USE_OPENMP=0
 pytorch-install: export CFLAGS:=$(CFLAGS)
+pytorch-install: export CMAKE_PREFIX_PATH=${CONDA_PREFIX:-"$(dirname $(which conda))/../"}
 pytorch-install:
 	cd $(PYTORCH_DIR) && python setup.py develop
 
 pytorch-uninstall:
+	-cd $(PYTORCH_DIR) && conda uninstall pytorch
 	cd $(PYTORCH_DIR) && pip uninstall torch
 	cd $(PYTORCH_DIR) && pip uninstall torch
 	cd $(PYTORCH_DIR) && python setup.py clean
