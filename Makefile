@@ -50,11 +50,13 @@ pytorch-uninstall:
 # BLAS Profiling
 blas-profile: export LD_PROFILE_OUTPUT=$(shell pwd)
 blas-profile: export LD_PROFILE=libopenblas.so.0
+blas-profile: LD_PROFILE_PATH=$(CONDA_PREFIX)/lib
 blas-profile: profile
 
 # TORCH Profiling
 torch-profile: export LD_PROFILE_OUTPUT=$(shell pwd)
 torch-profile: export LD_PROFILE=libtorch_python.so
+torch-profile: LD_PROFILE_PATH=$(TOPDIR)/pytorch/build/lib
 torch-profile: profile
 
 .PHONY: profile
@@ -62,7 +64,7 @@ profile:
 	@echo Profiling $$LD_PROFILE...
 	rm -f $$LD_PROFILE.profile
 	python $(PROFILE_TEST_SCRIPT)
-	sprof $(CONDA_PREFIX)/lib/$$LD_PROFILE $$LD_PROFILE.profile >> profile.log
+	sprof $(LD_PROFILE_PATH)/$$LD_PROFILE $$LD_PROFILE.profile >> profile.log
 
 clean:
 	rm *.profile *.log
