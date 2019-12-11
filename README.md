@@ -9,8 +9,9 @@ git submodule update --init --recursive
 
 Installation targets:
 ```
-make openblas-install # Builds and installs openblas in ./OpenBLAS/build dir
-make pytorch-install # Build and install PyTorch; make sure to be desired conda enviroment
+# Make sure to be in desired conda enviroment
+make openblas-install # Builds the source and installs openblas in conda env
+make pytorch-install # Builds the source and installs PyTorch in the conda env
 
 make pytorch-uninstall # Uninstall and clean PyTorch source directory
 make openblas-uninstall # Uninstall and clean OpenBLAS source directory
@@ -23,4 +24,10 @@ Check PyTorch:
 ```
 python check_pytorch.py # Prints pytorch installation's build config
 python cond2d_example.py # Simple conv2d operation to understand the call stack
+```
+
+Profiling (using `sprof`):
+```
+make blas-profile # Profile libopenblas.so on ./conv2d_exmaple
+make torch-profile # Profile libtorch_python.so on ./conv2d_example.py
 ```
