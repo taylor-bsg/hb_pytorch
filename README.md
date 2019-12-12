@@ -28,6 +28,12 @@ python cond2d_example.py # Simple conv2d operation to understand the call stack
 
 Profiling (using `sprof`):
 ```
-make blas-profile # Profile libopenblas.so on ./conv2d_exmaple
-make torch-profile # Profile libtorch_python.so on ./conv2d_example.py
+# Profile libopenblas.so on PROG
+make blas-profile [PROG=./benchmarks/conv2d_example.py]
+
+# Profile libtorch_python.so on PROG
+make torch-profile  [PROG=./benchmarks/conv2d_example.py]
+
+# General
+LD_PROFILE=<libfoo.so> LD_PROFILE_PATH=<path-to-dir-containing-foo> make profile PROG=<python script>
 ```
