@@ -1,7 +1,7 @@
 TOPDIR := $(shell git rev-parse --show-toplevel)
 OPENBLAS_DIR := $(TOPDIR)/OpenBLAS
 PYTORCH_DIR := $(TOPDIR)/pytorch
-HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin# Needs C++14; no space before this comment
+HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin # Needs C++14
 CONDA_PREFIX := $(dir $(abspath $(shell which python)/..))
 PROFILE_TEST_SCRIPT := $(TOPDIR)/conv2d_example.py
 
@@ -23,7 +23,7 @@ openblas-install:
 openblas-uninstall:
 	cd $(OPENBLAS_DIR) && $(MAKE) clean
 
-pytorch-install: export PATH=$(HOST_TOOLCHAIN):$(shell echo $$PATH)
+pytorch-install: export PATH=$(strip $(HOST_TOOLCHAIN)):$(shell echo $$PATH)
 pytorch-install: export DEBUG=1
 pytorch-install: export BLAS=OpenBLAS
 pytorch-install: export OpenBLAS_HOME=$(CONDA_PREFIX)
