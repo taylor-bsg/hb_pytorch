@@ -3,7 +3,7 @@ OPENBLAS_DIR := $(TOPDIR)/OpenBLAS
 PYTORCH_DIR := $(TOPDIR)/pytorch
 HOST_TOOLCHAIN := /opt/rh/devtoolset-8/root/usr/bin # Needs C++14
 CONDA_PREFIX := $(dir $(abspath $(shell which python)/..))
-PROFILE_TEST_SCRIPT := $(TOPDIR)/conv2d_example.py
+PROG := $(TOPDIR)/benchmarks/conv2d_example.py
 
 help:
 
@@ -48,23 +48,22 @@ pytorch-uninstall:
 	cd $(PYTORCH_DIR) && python setup.py clean
 
 # BLAS Profiling
-blas-profile: export LD_PROFILE_OUTPUT=$(shell pwd)
 blas-profile: export LD_PROFILE=libopenblas.so.0
 blas-profile: LD_PROFILE_PATH=$(CONDA_PREFIX)/lib
 blas-profile: profile
 
 # TORCH Profiling
-torch-profile: export LD_PROFILE_OUTPUT=$(shell pwd)
 torch-profile: export LD_PROFILE=libtorch_python.so
 torch-profile: LD_PROFILE_PATH=$(TOPDIR)/pytorch/build/lib
 torch-profile: profile
 
 .PHONY: profile
+profile: export LD_PROFILE_OUTPUT=$(shell pwd)
 profile:
-	@echo Profiling $$LD_PROFILE...
+	@echo Profiling $$LD_PROFILE on $(PROG)...
 	rm -f $$LD_PROFILE.profile
-	python $(PROFILE_TEST_SCRIPT)
-	sprof $(LD_PROFILE_PATH)/$$LD_PROFILE $$LD_PROFILE.profile >> profile.log
+	python $(PROG)
+	sprof $(LD_PROFILE_PATH)/$$LD_PROFILE $$LD_PROFILE.profile
 
 clean:
 	rm *.profile *.log
