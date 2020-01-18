@@ -1,0 +1,8 @@
+*.pyc
+__pycache__
+results/
+data/
+*.txt
+*.svg
+*.pyflame
+m5out
