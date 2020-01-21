@@ -1,11 +1,34 @@
-# Pytorch Backend
+# HammerBlade backend for PyTorch
 Repo to experiment with PyTorch backends
 
-Get the source:
-```
-git clone https://github.com/vb000/pytorch-backend.git
-git submodule update --init --recursive
-```
+Running PyTorch on HammerBlade cosim:
+-------------------------------------
+- Get the source:
+  ```
+  # Clone bsg_bladerunner and hb_pytorch in a common parent directory.
+  https://github.com/bespoke-silicon-group/bsg_bladerunner.git
+  git clone https://github.com/taylor-bsg/hb_pytorch.git
+  git submodule update --init --recursive
+  ```
+- Setup bsg_bladerunner by running:
+  ```
+  cd bsg_bladerunner
+  make setup
+  cd ..
+  ```
+- Setup Python environment; explained in "Python environment setup" section below.
+- Build PyTorch:
+  ```
+  cd hb_pytorch
+  # Make sure to be in 'torchsrc' conda environment see in the step above
+  make pytorch-install
+  cd ..
+  ```
+- Run a Python program by invoking interpreter in cosim:
+  ```
+  cd bsg_bladerunner/bsg_f1/testbenches/python
+  make test_python.log
+  ```
 
 Python environment setup:
 ------------------------
