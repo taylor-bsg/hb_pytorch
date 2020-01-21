@@ -16,7 +16,7 @@ Running PyTorch on HammerBlade cosim:
   make setup
   cd ..
   ```
-- Setup Python environment; explained in "Python environment setup" section below.
+- Setup Python environment captured in [environment.yml](https://github.com/taylor-bsg/hb_pytorch/blob/master/environment.yml); explained in "Python environment setup" section below.
 - Build PyTorch:
   ```
   cd hb_pytorch
