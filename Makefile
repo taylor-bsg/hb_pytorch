@@ -23,6 +23,9 @@ openblas-install:
 openblas-uninstall:
 	cd $(OPENBLAS_DIR) && $(MAKE) clean
 
+pytorch-install: export USE_HB=1
+pytorch-install: export HB_HOST_DIR=$(TOPDIR)/../bsg_bladerunner/bsg_f1/libraries
+pytorch-install: export HB_DEVICE_DIR=$(TOPDIR)/../bsg_bladerunner/bsg_manycore/software/tensorlib/build
 pytorch-install: export PATH=$(strip $(HOST_TOOLCHAIN)):$(shell echo $$PATH)
 pytorch-install: export DEBUG=1
 pytorch-install: export BLAS=OpenBLAS
